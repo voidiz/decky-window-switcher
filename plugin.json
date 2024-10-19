@@ -1,0 +1,11 @@
+{
+  "name": "Window Switcher",
+  "author": "voidiz",
+  "flags": ["_root"],
+  "api_version": 1,
+  "publish": {
+    "tags": ["template", "root"],
+    "description": "Quick switching between windows using gamepad bindings.",
+    "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+  }
+}
