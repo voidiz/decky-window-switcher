@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Plugin
-          path: "out/Window Switcher.zip"
+          path: "out/decky-window-switcher.zip"
   release:
     if: startsWith(github.ref, 'refs/heads/main')
     needs: build
@@ -48,5 +48,5 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: "Window Switcher.zip"
+          file: "decky-window-switcher.zip"
           tag: ${{ steps.release.outputs.tag_name }}
