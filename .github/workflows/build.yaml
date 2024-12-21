@@ -1,0 +1,31 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: echo "y" | .vscode/setup.sh
+      - name: Build
+        run: |
+          mkdir -p "${{ runner.temp }}/decky"
+          cli/decky plugin build -t "${{ runner.temp }}/decky"
+      - name: Archive build
+        uses: actions/upload-artifact@v4
+        with:
+          name: Plugin
+          path: "out/Window Switcher.zip"
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "out/Window Switcher.zip"
