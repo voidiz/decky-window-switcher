@@ -26,7 +26,7 @@
   "homepage": "https://github.com/voidiz/decky-window-switcher",
   "devDependencies": {
     "@decky/rollup": "^1.0.1",
-    "@decky/ui": "^4.8.1",
+    "@decky/ui": "^4.11.0",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "@types/webpack": "^5.28.5",

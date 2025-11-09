@@ -33,7 +33,7 @@ export async function getWindowInfos() {
         // TODO: Cast can be removed when the SteamClient type is updated.
         async ({ appId, windowIds }) => {
           const gameWindowsInfo = await (
-            SteamClient as SteamClientV2
+            SteamClient as unknown as SteamClientV2
           ).System.UI.GetGameWindowsInfo(appId, windowIds);
 
           return gameWindowsInfo.map((windowInfo) => ({
@@ -45,5 +45,5 @@ export async function getWindowInfos() {
     )
   ).flat();
 
-  return wInfo.map((window, index) => ({ ...window, index }));
+  return wInfo;
 }

@@ -11,12 +11,16 @@ import { FaRegWindowRestore } from "react-icons/fa";
 
 import { type AppWindowInfo, getWindowInfos } from "./window";
 import {
-  inputs,
   MappingsContext,
   MappingsContextProvider,
   type PersistentMappingsState,
-  unregisterTriggerListener,
 } from "./mappings";
+import {
+  createTriggerListener,
+  startInputWatcher,
+  TRIGGER_BUTTONS,
+  unregisterTriggerListener,
+} from "./input";
 
 function Content() {
   const { mappings, setMapping, enabled, toggleEnabled } =
@@ -41,21 +45,25 @@ function Content() {
           onChange={toggleEnabled}
         />
       </PanelSectionRow>
-      {inputs.map((input) => {
-        const label = `Trigger: ${input.label}`;
+      {TRIGGER_BUTTONS.map((button) => {
+        const label = `Trigger: ${button}`;
+        const currentWindowId = mappings[button]?.windowInfo.windowid;
+        const currentIndex = windowInfos.findIndex(
+          (info) => info.windowInfo.windowid == currentWindowId
+        );
 
         return (
-          <PanelSectionRow key={input.label}>
+          <PanelSectionRow key={button}>
             <DropdownItem
               label={label}
               menuLabel={label}
-              rgOptions={windowInfos.map((winfo) => ({
-                data: winfo.index,
+              rgOptions={windowInfos.map((winfo, index) => ({
+                data: index,
                 label: winfo.windowInfo.strTitle,
               }))}
-              selectedOption={mappings[input.label]?.index}
+              selectedOption={currentIndex != -1 ? currentIndex : undefined}
               onChange={({ data }) => {
-                setMapping(input.label, windowInfos[data]);
+                setMapping(button, windowInfos[data]);
               }}
             />
           </PanelSectionRow>
@@ -70,6 +78,9 @@ export default definePlugin(() => {
     mappings: {},
     enabled: true,
   };
+
+  createTriggerListener(state);
+  startInputWatcher();
 
   return {
     // The name shown in various decky menus
@@ -87,6 +98,7 @@ export default definePlugin(() => {
     icon: <FaRegWindowRestore />,
     // The function triggered when your plugin unloads
     onDismount() {
+      console.log("Unloading decky-window-switcher");
       unregisterTriggerListener();
     },
   };

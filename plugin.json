@@ -2,7 +2,7 @@
   "name": "decky-window-switcher",
   "author": "voidiz",
   "flags": ["_root"],
-  "api_version": 1,
+  "api_version": 2,
   "publish": {
     "tags": ["template", "root"],
     "description": "Quick switching between windows using gamepad bindings.",

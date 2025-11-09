@@ -10,8 +10,3 @@ Deck.
 
 Currently only L4, R4, L5, and R5 can be bound. Mappings are not persistent across
 restarts.
-
-## known bugs
-
-If you close or open new windows, the settings might go out of sync with the
-actual mappings. Simply reapply the mappings to fix it.
